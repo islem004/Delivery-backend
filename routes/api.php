@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/deliveries/{id}',    [DeliveryController::class, 'update']);
     Route::delete('/deliveries/{id}', [DeliveryController::class, 'destroy']);
     Route::get('/deliveries/{id}/track', [DeliveryController::class, 'track']);
+    Route::get('/deliveries/{id}/print', [DeliveryController::class, 'printDeliveryForm']);
 
     // Delivery Items
     Route::post('/deliveries/{deliveryId}/items',             [DeliveryItemController::class, 'store']);
@@ -52,4 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications/unread',       [NotificationController::class, 'unread']);
     Route::put('/notifications/{id}/read',    [NotificationController::class, 'markAsRead']);
     Route::put('/notifications/read-all',     [NotificationController::class, 'markAllAsRead']);
+
+ 
 });
+  

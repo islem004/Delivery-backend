@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Milon\Barcode\DNS1D;
 class DeliveryController extends Controller
 {
     public function index(Request $request)
@@ -175,4 +175,13 @@ class DeliveryController extends Controller
             'history'         => $delivery->statusHistories,
         ]);
     }
+    public function printDeliveryForm(Request $request, $id)
+{
+    $delivery = Delivery::where('client_id', $request->user()->client->id)
+        ->with(['items', 'client'])
+        ->findOrFail($id);
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.delivery-form', compact('delivery'));
+    return $pdf->download('bon-livraison-' . $delivery->delivery_number . '.pdf');
+}
 }
