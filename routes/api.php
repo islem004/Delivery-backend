@@ -53,6 +53,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications/unread',       [NotificationController::class, 'unread']);
     Route::put('/notifications/{id}/read',    [NotificationController::class, 'markAsRead']);
     Route::put('/notifications/read-all',     [NotificationController::class, 'markAllAsRead']);
+    // Admin Routes
+Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
+    Route::get('/stats', [\App\Http\Controllers\Admin\DashboardController::class, 'stats']);
+    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::get('/users/pending', [\App\Http\Controllers\Admin\UserController::class, 'pending']);
+    Route::post('/users/{id}/approve', [\App\Http\Controllers\Admin\UserController::class, 'approve']);
+    Route::post('/users/{id}/disable', [\App\Http\Controllers\Admin\UserController::class, 'disable']);
+    Route::delete('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'delete']);
+    Route::apiResource('deliveries', \App\Http\Controllers\Admin\LivraisonController::class);
+    Route::apiResource('staff', \App\Http\Controllers\Admin\LivreurController::class);
+    Route::apiResource('clients', \App\Http\Controllers\Admin\ClientB2BController::class);
+    Route::get('/invoices', [\App\Http\Controllers\Admin\FactureController::class, 'index']);
+    Route::post('/invoices/generate', [\App\Http\Controllers\Admin\FactureController::class, 'generate']);
+});
 
  
 });

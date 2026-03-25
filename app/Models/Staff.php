@@ -22,4 +22,9 @@ class Staff extends Model
     {
         return $this->hasMany(Delivery::class, 'assigned_staff_id');
     }
+
+    public function assignedDeliveries()
+    {
+        return $this->hasMany(Delivery::class, 'assigned_staff_id');
+    }
 }

@@ -80,4 +80,8 @@ class Delivery extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    public function assignedStaff()
+{
+    return $this->belongsTo(Staff::class, 'assigned_staff_id');
+}
 }
